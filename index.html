@@ -5,18 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Toko Pancing Sejahtera</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     html {
       scroll-behavior: smooth;
     }
 
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      color: #ffffff;
-      background-color:#000000 ;
-    }
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  background-color:#000000 ;
+}
+
+.rating {
+  font-size: 28px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.rating .filled {
+  color: gold;
+}
+
+.rating .empty {
+  color: #555;
+}
 
  body:before {
       content: "";
@@ -127,40 +143,109 @@ header p {
       line-height: 1.8;
     }
 
-    .produk-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
+  #kontak a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+  }
 
-    .produk {
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: 0.3s;
-      color: #000;
-    }
+  #kontak a:hover {
+    color: #bbbbbb;
+  }
+  .sosmed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sosmed img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+  .produk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+    align-items: stretch;
+  }
+
+  .produk {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: 0.3s;
+    color: #000;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-height: 600px;
+    text-align: center;
+  }
 
     .produk:hover {
       transform: translateY(-5px);
     }
 
-    .produk img {
-      max-width: 100%;
-      border-radius: 10px;
-    }
+   .produk img {
+  width: 90%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin: 0 auto;
+  display: block;
+  }
 
-    .produk h3 {
-      color: #000000;
-      margin: 15px 0 10px;
-    }
+  .produk h3 {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+  }
 
-    .produk p {
-      color: #555;
-      font-size: 0.95em;
-    }
+  .produk p {
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.6;
+  }
+
+  .produk p:not(.harga):not(.terjual) {
+    min-height: 90px;
+  }
+
+  .harga {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #000;
+  }
+
+  .terjual {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .produk button {
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #0b7cd8;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .produk button:hover {
+    background: #333;
+  }
 
     footer {
       text-align: center;
@@ -192,7 +277,7 @@ header p {
 
 <section id="koleksi">
   <h2>Koleksi Produk</h2>
-  <p>Pilih perlengkapan pancing premium yang kami sediakan.</p>
+  <p>silahkan Pilih dan beli perlengkapan pancing premium yang kami sediakan.</p>
 
       <div class="produk-grid">
 
@@ -200,72 +285,144 @@ header p {
             <img src="minow.jpg" alt="minow">
             <h3>minow</h3>
             <p class="harga">Rp 40.000</p>
-            <p>umpan tiruan untuk ikan predator.</p>
+            <p>umpan tiruan untuk ikan predator,berbagai ukuran dan berat mulai 2cm-7cm dan berat mulai 2,5gr-15gr.</p>
+            <p class="terjual" id="terjual-minow">Terjual: 0</p>
+            <div class="rating" data-produk="minow">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+      </div>
             <button onclick="tambah('minow', 40000)">Tambah</button>
           </div>
 
         <div class="produk">
-            <img src="rell.jpg" alt="Reel Premium">
-            <h3>Reel Premium</h3>
-            <p class="harga">Rp 260000</p>
-            <p>reel/gulungan untuk benang.</p>
-            <button onclick="tambah('rell', 260.000)">Tambah</button>
+            <img src="reel.jpg" alt="reel ">
+            <h3>Reel luminar sw</h3>
+            <p class="harga">Rp 260.000</p>
+            <p>reel luminar sw, gulungan untuk benang saat memancing,berbagai ukuran dari ukuran 1000-7000.</p>
+            <p class="terjual" id="terjual-reel">Terjual: 0</p>
+            <div class="rating" data-produk="reel">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+      </div>
+            <button onclick="tambah('reel', 260000)">Tambah</button>
           </div>
 
         <div class="produk">
-            <img src="joran spining.jpg" alt="joran untuk memancing">
+            <img src="joran_spining.jpg" alt="joran spining">
             <h3>joran spining</h3>
             <p class="harga">Rp 350.000</p> 
-            <p>joran untuk memancing.</p>
-            <button onclick="tambah('joran', 350000)">Tambah</button>
+            <p>joran model gasak 702 model spining,panjang 210cm dilengkapi dengan 7 buah cincin sea guide.</p>
+            <p class="terjual" id="terjual-joran_spining">Terjual: 0</p>
+            <div class="rating" data-produk="joran">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+      </div>
+            <button onclick="tambah('joran_spining', 350000)">Tambah</button>
           </div>
 
         <div class="produk">
-            <img src="softlure.jpg" alt="Joran Tegek">
+            <img src="softlure.jpg" alt="softlure">
             <h3>soft lure</h3>
             <p class="harga">Rp 30.000</p>
-            <p>umpan tiruan untuk predator sungai/muara .</p>
+            <p>umpan tiruan untuk predator sungai/muara,ukuran beragam dari 2cm-12cm dan berat dari 2,5gr-25gr.</p>
+            <p class="terjual" id="terjual-softlure">Terjual: 0</p>
+           <div class="rating" data-produk="softlure">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+      </div>
             <button onclick="tambah('softlure', 30000)">Tambah</button>
-       </div>
+          </div>
 
         <div class="produk">
-            <img src="benang pe.jpg" alt="Senar Pancing">
+            <img src="benang_pe.jpg" alt="benang_pe">
             <h3>benang pe</h3>
             <p class="harga">Rp 120.000</p>
-            <p>benang utuk memancing.</p>
-            <button onclick="tambah('benang pe', 120000)">Tambah</button>
+            <p>benang yang mempunyai daya tahan sangat kuat memancing,tapi benang ini seering kali kusut karena bahannya yang fleksibel,ukuran mulai 0,4-10,0.</p>
+            <p class="terjual" id="terjual-benang_pe">Terjual: 0</p>
+           <div class="rating" data-produk="benang_pe">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+      </div>
+            <button onclick="tambah('benang_pe', 120000)">Tambah</button>
           </div>
 
         <div class="produk">
-            <img src="joran tegek.jpg" alt="Soft Lure">
+            <img src="joran_tegek.jpg" alt="joran tegek">
             <h3>joran tegek</h3>
             <p class="harga">Rp 200.000</p>
-            <p>untuk memancing ikan kecil - besar.</p>
-            <button onclick="tambah('joran tegek', 200000)">Tambah</button>
+            <p>joran tegek berbahan carbon yang ringan nan kuat,joran tegek sering digunakan karena peraktis karena 'bisa memanjang dan bisamengecil',biasanya tegek di gunakan untuk memancing ikan kecil - besar.</p>
+            <p class="terjual" id="terjual-joran_tegek">Terjual: 0</p>
+            <div class="rating" data-produk="joran_tegek">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+      </div>
+            <button onclick="tambah('joran_tegek', 200000)">Tambah</button>
           </div>
 
           <div class="produk">
-            <img src="pelampung.jpg">
+            <img src="pelampung.jpg" alt="pelampung">
             <h3>pelampung</h3>
             <p class="harga">Rp 10.000</p>
-            <p>untuk memancing ikan di kolam/sungai.</p>
+            <p>pelampug untuk memancing ikan di kolam/sungai,pelampung adalah alat untuk tehnik 'kumbulan',ukuran mulai dari 1,5cm-5cm.</p>
+            <p class="terjual" id="terjual-pelampung">Terjual: 0</p>
+            <div class="rating" data-produk="pelampung">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+      </div>
             <button onclick="tambah('pelampung', 10000)">Tambah</button>
-          </div>
-
-           <div class="produk">
-            <img src="benang nilon.jpg">
-            <h3>benang nilon</h3>
-            <p class="harga">Rp 40.000</p>
-            <p>untuk pemancing pemula yang gamau ribet.</p>
-            <button onclick="tambah('benang nilon', 40000)">Tambah</button>
           </div>
 
           <div class="produk">
-            <img src="matakail.jpg">
+            <img src="mata_kail.jpg" alt="mata kail">
             <h3>mata kail</h3>
-            <p class="harga">Rp 10.000</p>
-            <p>untuk memancing ikan di kolam/sungai.</p>
-            <button onclick="tambah('pelampung', 10000)">Tambah</button>
+            <p class="harga">Rp 25.000</p>
+            <p>kail adalah bagian utama pada alat-alat pancing,ukuran kail berbagai, mulai dari 0,1-9,0.</p>
+            <p class="terjual" id="terjual-mata_kail">Terjual: 0</p>
+            <div class="rating" data-produk="mata_kail">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+       </div>
+            <button onclick="tambah('mata_kail', 25000)">Tambah</button>
+          </div>
+
+             <div class="produk">
+            <img src="benang_nilon.jpg" alt="benang_ nilon">
+            <h3>benang nilon</h3>
+            <p class="harga">Rp 40.000</p>
+            <p>untuk pemancing pemula yang gamau ribet karen benang ,tahan gesek dan tidak mudah kusut.</p>
+            <p class="terjual" id="terjual-benang_nilon">Terjual: 0</p>
+           <div class="rating" data-produk="benang_nilon">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+       </div>
+            <button onclick="tambah('benang nilon', 40000)">Tambah</button>
           </div>
 
     </div>
@@ -275,7 +432,7 @@ header p {
 
   <input type="text" id="nama" placeholder="Masukkan nama kamu">
 
-  <ul id="list"></ul>
+  <ul id="list"></ul> 
 
   <h3>Total: Rp <span id="total">0</span></h3>
 
@@ -287,6 +444,9 @@ header p {
 let keranjang = [];
 let total = 0;
 
+let dataPenjualan = JSON.parse(localStorage.getItem("dataPenjualan")) || {};
+let chart = null;
+
 function tambah(nama, harga){
   keranjang.push({nama, harga});
 
@@ -297,11 +457,90 @@ function tambah(nama, harga){
 
   total += harga;
   document.getElementById("total").innerText = total;
+
+}
+
+function renderRating() {
+  let ratings = document.querySelectorAll(".rating");
+
+  ratings.forEach(rating => {
+    let produk = rating.dataset.produk;
+    let nilai = localStorage.getItem("rating-" + produk) || 0;
+
+    let stars = rating.querySelectorAll("span");
+
+    stars.forEach(star => {
+      let value = star.dataset.value;
+
+      if(value <= nilai){
+        star.classList.add("filled");
+        star.classList.remove("empty");
+      } else {
+        star.classList.add("empty");
+        star.classList.remove("filled");
+      }
+
+      star.onclick = function(){
+        localStorage.setItem("rating-" + produk, value);
+        renderRating();
+      }
+    });
+  });
+}
+
+function updateChart(){
+  let canvas = document.getElementById('chartPenjualan');
+  if(!canvas) return;
+
+  let ctx = canvas.getContext('2d');
+
+  if(chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: Object.keys(dataPenjualan),
+       datasets: [{
+      label: 'Jumlah Dibeli',
+        data: Object.values(dataPenjualan),
+         backgroundColor: 'rgba(255,255,255,0.7)'
+       }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: { color: 'white' }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: 'white' }
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: 'white',
+            stepSize: 1,
+            precision: 0
+          }
+        }
+      }
+    }
+  });
+}
+
+function updateTerjual(){
+  for(let produk in dataPenjualan){
+    let elemen = document.getElementById("terjual-"+produk);
+    if(elemen){
+      elemen.innerText = "Terjual: "+dataPenjualan[produk];
+    }
+  }
 }
 
 function checkout(){
   let nama = document.getElementById("nama").value;
-
+  let alamat = document.getAnimations("alamat").value;
   if(nama === ""){
     alert("Isi nama dulu!");
     return;
@@ -312,7 +551,16 @@ function checkout(){
     return;
   }
 
-  let nomor = "6285759149436"; // ganti nomor kamu
+  keranjang.forEach(item => {
+    dataPenjualan[item.nama] = (dataPenjualan[item.nama] || 0) + 1;
+  });
+
+  updateChart();
+  updateTerjual();
+
+  localStorage.setItem("dataPenjualan", JSON.stringify(dataPenjualan));
+
+  let nomor = "6285759149436";
 
   let pesan = `Halo, saya ingin memesan:%0A%0A`;
   pesan += `Nama: ${nama}%0A`;
@@ -325,18 +573,69 @@ function checkout(){
   pesan += `%0ATotal: Rp ${total}`;
 
   let url = `https://wa.me/${nomor}?text=${pesan}`;
-
   window.open(url, '_blank');
+
+  keranjang = [];
+  total = 0;
+  document.getElementById("list").innerHTML = "";
+  document.getElementById("total").innerText = "0";
+}
+
+let count = localStorage.getItem("visitorCount");
+
+if(count === null){
+  count = 0;
+}
+
+count++;
+localStorage.setItem("visitorCount", count);
+
+window.onload = function(){
+  document.getElementById("visitor-count").innerText = count;
+  updateChart();
+  updateTerjual(); 
+  renderRating(); 
 }
 </script>
 
- <section id="kontak">
-    <h2>Kontak admin</h2>
-    <p>Email: tokopancing@sejahtera.com | Telepon: +62 857 5914 9436</p>
-  </section>
+  <section id="diagram">
+  <h2>Diagram Penjualan</h2>
+  <canvas id="chartPenjualan"></canvas>
+</section>
+
+ <section id="kontak"> 
+  <h2>Kontak Admin</h2>
+
+  <p>Email: tokopancing@sejahtera.com</p>
+
+ <p class="sosmed">
+    whatsapp:
+    <a href="https://whatsapp.com/tokopancingsejahtera" target="_blank">
+      @andre pancing
+    </a>
+    <img src="whatsapp.jpg" alt="whatsapp">
+  </p>
+
+  <p class="sosmed">
+    Instagram:
+    <a href="https://instagram.com/tokopancingsejahtera" target="_blank">
+      @tokopancingsejahtera
+    </a>
+    <img src="instagram.jpg" alt="Instagram">
+  </p>
+
+  <p class="sosmed">
+    TikTok:
+    <a href="https://tiktok.com/@tokopancingsejahtera" target="_blank">
+      @tokopancingsejahtera
+    </a>
+    <img src="tiktok.jpg" alt="TikTok">
+  </p>
+</section>
 
   <footer>
-    &copy; 2026 Toko Pancing Sejahtera.
+   <p>Total Pengunjung: <span id="visitor-count">0</span></p>
+   &copy; 2026 Toko Pancing Sejahtera.
   </footer>
 </body>
 </html>
